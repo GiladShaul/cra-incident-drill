@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRA Article 14 readiness checklist — 12 checks before 11 September 2026</title>
+<meta name="description" content="Printable 12-point checklist for the EU Cyber Resilience Act Article 14 reporting duty: EU Login, CSIRT coordinator, 24-hour template, named roles, SBOM, monitoring, user notification. Free.">
+<link rel="canonical" href="https://giladshaul.github.io/cra-incident-drill/cra-article-14-checklist.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E%E2%8F%B1%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+<style>@media print { header.site, footer, .btn, .noprint { display: none !important; } body { background: #fff; color: #000; } .card { border-color: #999; background: #fff; } h1, h2 { color: #000; } .gap { background: #fff; } }</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="./">CRA<span>·</span>Incident Drill</a>
+    <nav><a href="./#drill">The drill</a><a href="./#pack">Ops pack</a><a href="deadline-calculator.html">Deadline calculator</a></nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="hero">
+    <h1>CRA Article 14 readiness checklist</h1>
+    <p class="lead">Twelve checks that decide whether you'd make the 24-hour early-warning deadline that applies from 11 September 2026. Print it, walk it in your next team meeting, fix what's unchecked. (Prefer it interactive with scoring? <a href="./">Run the free drill</a>.)</p>
+    <p class="noprint"><button class="btn secondary" onclick="window.print()">Print / save as PDF</button></p>
+  </div>
+  <section>
+    <div class="card" id="list"></div>
+    <div class="disclaimer">Based on Regulation (EU) 2024/2847 Art. 14 and official ENISA/Commission guidance. Educational material, not legal advice. Pre-built working files for every item: the <a href="./#pack">$99 Reporting Operations Pack</a>.</div>
+  </section>
+</div>
+<footer><div class="wrap"><p>© 2026 CRA Incident Drill · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p></div></footer>
+<script src="drill.js"></script>
+<script>
+document.getElementById("list").innerHTML = DRILL.CHECKS.map(function (c, i) {
+  return '<div class="gap" style="border-left-color:#2f81f7"><b>☐ ' + (i + 1) + ". " + c.q + "</b><span>" + c.why + "</span></div>";
+}).join("");
+</script>
+</body>
+</html>

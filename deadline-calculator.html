@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRA reporting deadline calculator — 24h / 72h / final report dates</title>
+<meta name="description" content="Enter the moment you became aware of an exploited vulnerability or severe incident; get your exact EU Cyber Resilience Act Article 14 deadlines (24-hour early warning, 72-hour notification, final report) in UTC. Free, runs in your browser.">
+<link rel="canonical" href="https://giladshaul.github.io/cra-incident-drill/deadline-calculator.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E%E2%8F%B1%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="./">CRA<span>·</span>Incident Drill</a>
+    <nav><a href="./#drill">The drill</a><a href="./#pack">Ops pack</a><a href="security-txt-generator.html">security.txt</a><a href="./#faq">FAQ</a></nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="hero">
+    <h1>CRA reporting deadline calculator</h1>
+    <p class="lead">Article 14 deadlines run from the moment your organisation becomes <b>aware</b> — not from when the incident happened. Enter that moment; get every filing deadline in UTC, ready to paste into your incident channel.</p>
+  </div>
+  <section>
+    <div class="card">
+      <label for="aware">Awareness declared (your local time)</label>
+      <input type="datetime-local" id="aware">
+      <label for="track">What are you reporting?</label>
+      <div class="choices" id="track" style="margin-top:6px">
+        <button data-v="vuln" aria-pressed="true">Actively exploited vulnerability</button>
+        <button data-v="incident" aria-pressed="false">Severe incident</button>
+      </div>
+      <div id="fixwrap">
+        <label for="fix">Corrective/mitigating measure available on (optional — starts the final-report window on the vulnerability track)</label>
+        <input type="datetime-local" id="fix">
+      </div>
+      <p style="margin-top:16px"><button class="btn" id="calc">Calculate deadlines</button></p>
+      <div id="outwrap" class="hidden">
+        <div class="timeline" id="tl"></div>
+        <p><button class="btn secondary" id="copy">Copy as text</button> <span id="copied" class="sub"></span></p>
+      </div>
+    </div>
+    <div class="disclaimer">Deadlines per Regulation (EU) 2024/2847 Art. 14: early warning within 24 hours of awareness; notification within 72 hours of awareness; final report within 14 days of a corrective measure being available (vulnerabilities) or within one month of the notification (incidents). Reports go to your coordinating CSIRT + ENISA via the Single Reporting Platform. Educational tool, not legal advice. Test whether you could actually make these deadlines with the <a href="./">free readiness drill</a>.</div>
+  </section>
+</div>
+<footer><div class="wrap"><p>© 2026 CRA Incident Drill · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p></div></footer>
+<script>
+(function () {
+  var track = "vuln";
+  var HOUR = 3600000, DAY = 86400000;
+  document.querySelectorAll("#track button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#track button").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true");
+      track = b.dataset.v;
+      document.getElementById("fixwrap").style.display = track === "vuln" ? "block" : "none";
+    });
+  });
+  function utc(ms) { return new Date(ms).toISOString().replace("T", " ").slice(0, 16) + " UTC"; }
+  var lastText = "";
+  document.getElementById("calc").addEventListener("click", function () {
+    var v = document.getElementById("aware").value;
+    if (!v) { alert("Enter the awareness date and time."); return; }
+    var t0 = new Date(v).getTime();
+    var rows = [["Awareness declared", utc(t0)], ["Early warning due (+24h)", utc(t0 + 24 * HOUR)], ["Notification due (+72h)", utc(t0 + 72 * HOUR)]];
+    if (track === "vuln") {
+      var f = document.getElementById("fix").value;
+      rows.push(f ? ["Final report due (fix + 14 days)", utc(new Date(f).getTime() + 14 * DAY)] : ["Final report", "14 days after your fix/mitigation becomes available - recalculate then"]);
+    } else {
+      rows.push(["Final report due (notification + 1 month)", utc(t0 + 72 * HOUR + 30 * DAY)]);
+    }
+    document.getElementById("tl").innerHTML = rows.map(function (r) { return '<div class="tl-item"><span class="tl-when">' + r[1] + '</span><span>' + r[0] + "</span></div>"; }).join("");
+    lastText = "CRA Article 14 deadlines (" + (track === "vuln" ? "exploited vulnerability" : "severe incident") + ")\n" + rows.map(function (r) { return r[0] + ": " + r[1]; }).join("\n") + "\nGenerated by https://giladshaul.github.io/cra-incident-drill/deadline-calculator.html";
+    document.getElementById("outwrap").classList.remove("hidden");
+  });
+  document.getElementById("copy").addEventListener("click", function () {
+    navigator.clipboard.writeText(lastText).then(function () { document.getElementById("copied").textContent = "copied"; });
+  });
+})();
+</script>
+</body>
+</html>
