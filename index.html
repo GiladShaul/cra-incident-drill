@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRA Incident Drill — could you file the EU 24-hour report in time?</title>
+<meta name="description" content="From 11 September 2026 the EU Cyber Resilience Act gives manufacturers 24 hours to file an early warning after learning of an exploited vulnerability or severe incident. Run the free 7-minute browser drill and find your gaps before the clock is real.">
+<link rel="canonical" href="https://giladshaul.github.io/cra-incident-drill/">
+<meta property="og:title" content="CRA Incident Drill — the EU 24-hour reporting rule starts 11 Sept 2026">
+<meta property="og:description" content="Free 7-minute readiness drill for the Cyber Resilience Act Article 14 reporting duty. Runs entirely in your browser — nothing is uploaded.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Who must report under CRA Article 14?","acceptedAnswer":{"@type":"Answer","text":"Manufacturers of products with digital elements made available on the EU market. From 11 September 2026 they must report actively exploited vulnerabilities and severe incidents to ENISA and their coordinating CSIRT via the Single Reporting Platform — including for products already sold."}},
+{"@type":"Question","name":"What are the CRA reporting deadlines?","acceptedAnswer":{"@type":"Answer","text":"An early warning within 24 hours of becoming aware, a fuller notification within 72 hours, and a final report within 14 days of a fix being available (vulnerabilities) or within one month (severe incidents)."}},
+{"@type":"Question","name":"Is this tool legal advice?","acceptedAnswer":{"@type":"Answer","text":"No. It is an educational readiness exercise. Confirm scope and obligations with qualified counsel."}}]}
+</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="./">CRA<span>·</span>Incident Drill</a>
+    <nav>
+      <a href="#drill">The drill</a>
+      <a href="#pack">Ops pack</a>
+      <a href="security-txt-generator.html">security.txt generator</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>On 11 September 2026 the EU starts a stopwatch.<br>You get <em>24 hours</em>.</h1>
+    <p class="lead">The Cyber Resilience Act's Article 14 reporting duty goes live: when you become aware of an actively exploited vulnerability or a severe incident in your product, an early warning must reach ENISA and your national CSIRT within 24 hours — filed manually, on a form, by a named human with an EU Login. This free drill simulates that moment and scores whether you'd make it.</p>
+    <p><a class="btn" href="#drill">Start the 7-minute drill</a></p>
+    <div class="badges">
+      <span>Runs 100% in your browser</span>
+      <span>Nothing uploaded, no signup</span>
+      <span>Based on Regulation (EU) 2024/2847</span>
+    </div>
+  </div>
+
+  <section id="drill">
+    <h2>The drill</h2>
+    <p class="sub">Part 1 — does the duty apply to you? Part 2 — a simulated incident, 12 questions. Honest answers only; the score is for you, not for us.</p>
+
+    <div class="card" id="scope-card">
+      <h3>Part 1 · Scope triage</h3>
+      <div id="scope-q1">
+        <p class="q">1/3 — Do you make a product that is or contains software (an app, device, firmware, SaaS-adjacent product, library sold commercially)?</p>
+        <div class="choices" data-q="isDigital">
+          <button data-v="yes">Yes</button><button data-v="no">No</button><button data-v="unsure">Not sure</button>
+        </div>
+      </div>
+      <div id="scope-q2" class="hidden">
+        <p class="q">2/3 — Is it made available on the EU market (sold, licensed, or offered to EU customers)?</p>
+        <div class="choices" data-q="sellsEU">
+          <button data-v="yes">Yes</button><button data-v="no">No</button><button data-v="unsure">Not sure</button>
+        </div>
+      </div>
+      <div id="scope-q3" class="hidden">
+        <p class="q">3/3 — In the course of a commercial activity (not a pure hobby / unmonetised open-source project)?</p>
+        <div class="choices" data-q="isCommercial">
+          <button data-v="yes">Yes</button><button data-v="no">No</button><button data-v="unsure">Not sure</button>
+        </div>
+      </div>
+      <div id="scope-verdict" class="hidden"></div>
+    </div>
+
+    <div class="card hidden" id="sim-card">
+      <h3>Part 2 · The simulation</h3>
+      <p class="scenario">Tuesday, 02:14. A security researcher emails your support inbox: a vulnerability in your product is being actively exploited at two of your customers. Screenshots attached. The moment someone at your company reads this and understands it, you are "aware" — and the clock below starts.</p>
+      <div class="timeline" id="timeline"></div>
+      <p class="sub">Could you deliver? Answer the 12 questions:</p>
+      <div id="checks"></div>
+    </div>
+
+    <div class="card hidden" id="result-card">
+      <h3>Your readiness</h3>
+      <div class="score-big" id="score"></div>
+      <div class="band" id="band"></div>
+      <div id="gaps"></div>
+      <p style="margin-top:18px">
+        <button class="btn" id="export">Download your readiness report</button>
+        <a class="btn secondary" href="#pack">Close the gaps — see the Ops Pack</a>
+      </p>
+    </div>
+  </section>
+
+  <section id="pack">
+    <h2>Article 14 Reporting Operations Pack</h2>
+    <p class="sub">Everything the drill says you're missing, pre-built. Not theory — working files your team fills in during the real 24 hours.</p>
+    <div class="card">
+      <div class="price">$99 <small>one-time · instant download · 30-day refund</small></div>
+      <ul class="pack">
+        <li><b>24-hour early-warning working files</b> — vulnerability and incident variants, fields matching the notification content required by Article 14</li>
+        <li><b>72-hour notification working files</b> — both variants, with prompts for the exploit description, measures taken, and user mitigations</li>
+        <li><b>Final report working files</b> — 14-day (vulnerability) and 1-month (incident) versions</li>
+        <li><b>Incident clock workbook</b> — awareness timestamping guidance + deadline tracker</li>
+        <li><b>Escalation & RACI sheet</b> — who declares awareness, who drafts, who submits, who informs users</li>
+        <li><b>Evidence log template</b> — the timestamped trail that proves you filed in time</li>
+        <li><b>Executive brief + customer notice templates</b> — Article 14(8) user-information duty covered</li>
+        <li><b>security.txt & disclosure-policy generator</b> — plus a completed example</li>
+        <li><b>One tabletop scenario with a fully completed example run</b> — rehearse before 11 September</li>
+      </ul>
+      <p id="buy-area"><button class="btn" id="buy" disabled>Launching this week</button></p>
+      <p class="sub" style="font-size:13px">Editable files (open in Word/Excel/Google Docs). Explicitly not legal advice — built for engineering and ops teams to execute, with counsel reviewing.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <details><summary>My product shipped years ago. Am I off the hook?</summary>
+      <p>No — this is the part that surprises people. The reporting duty applies from 11 September 2026 to products with digital elements already on the EU market, even though most other CRA obligations only bite from December 2027. If it's still in use and you learn of an actively exploited vulnerability, the clock runs.</p></details>
+    <details><summary>What exactly counts as a "severe incident"?</summary>
+      <p>Under Article 14(5): an incident that negatively affects — or could affect — your product's ability to protect the availability, authenticity, integrity or confidentiality of sensitive or important data, or that enables the introduction or execution of malicious code. Routine bugs and ordinary patches are out of scope.</p></details>
+    <details><summary>Where do the reports go?</summary>
+      <p>Through ENISA's Single Reporting Platform, simultaneously to ENISA and to the CSIRT designated as coordinator for you (normally the Member State of your main EU establishment). The platform is scheduled to be operational by 11 September 2026; submission is a manual form — there is no API.</p></details>
+    <details><summary>What happens if I don't report?</summary>
+      <p>Article 14 sits in the CRA's penalty regime, with administrative fines that can reach millions of euros depending on the breach — and non-compliance is visible: your CSIRT knows whether you filed. The bigger operational risk is scrambling: a missed 24-hour window is not recoverable after the fact.</p></details>
+    <details><summary>Is any of my data collected by this site?</summary>
+      <p>No. The drill runs entirely in your browser; answers never leave your machine. The exported report is generated locally.</p></details>
+    <details><summary>Is this legal advice?</summary>
+      <p>No. This is an educational readiness exercise built from the regulation text and official guidance (linked below). Scope and obligations should be confirmed with qualified counsel.</p></details>
+    <div class="disclaimer">Sources: <a href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj" rel="noopener">Regulation (EU) 2024/2847 (Cyber Resilience Act)</a> · <a href="https://digital-strategy.ec.europa.eu/en/policies/cra-reporting" rel="noopener">European Commission — CRA reporting obligations</a> · <a href="https://www.enisa.europa.eu/topics/product-security-and-certification/single-reporting-platform-srp" rel="noopener">ENISA — Single Reporting Platform</a>. This site is independent and not affiliated with the EU, ENISA, or any CSIRT. Educational material, not legal advice.</div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 CRA Incident Drill · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="refunds.html">Refunds</a> · Contact: see Terms</p>
+  </div>
+</footer>
+
+<script src="drill.js"></script>
+<script>
+(function () {
+  var scope = {};
+  var answers = {};
+  var scopeOrder = ["scope-q1", "scope-q2", "scope-q3"];
+
+  document.querySelectorAll("#scope-card .choices").forEach(function (grp, idx) {
+    grp.addEventListener("click", function (e) {
+      if (e.target.tagName !== "BUTTON") return;
+      grp.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+      e.target.setAttribute("aria-pressed", "true");
+      scope[grp.dataset.q] = e.target.dataset.v;
+      if (idx < 2) document.getElementById(scopeOrder[idx + 1]).classList.remove("hidden");
+      if (scope.isDigital && scope.sellsEU && scope.isCommercial) showScopeVerdict();
+    });
+  });
+
+  function showScopeVerdict() {
+    var v = DRILL.scopeVerdict(scope.sellsEU, scope.isCommercial, scope.isDigital);
+    var el = document.getElementById("scope-verdict");
+    el.classList.remove("hidden");
+    var cls = v.verdict === "likely-in" ? "bad" : (v.verdict === "unclear" ? "warn" : "ok");
+    el.innerHTML = '<p class="band ' + cls + '">' + v.label + '</p><p class="sub">' + v.detail + "</p>";
+    document.getElementById("sim-card").classList.remove("hidden");
+    renderTimeline();
+    renderChecks();
+  }
+
+  function fmt(ms) {
+    return new Date(ms).toLocaleString(undefined, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  }
+
+  function renderTimeline() {
+    var d = DRILL.deadlines(Date.now());
+    var rows = [
+      ["Now", "You become aware. The clock starts."],
+      [fmt(d.earlyWarning), "Early warning due — type, manufacturer, product, title (+ malicious-act suspicion for incidents)."],
+      [fmt(d.notification), "72-hour notification due — nature of the vulnerability/incident, exploit details, measures taken and available to users."],
+      ["+14 days / +1 month", "Final report due — 14 days after a fix is available (vulnerability) or one month (incident)."]
+    ];
+    document.getElementById("timeline").innerHTML = rows.map(function (r) {
+      return '<div class="tl-item"><span class="tl-when">' + r[0] + '</span><span>' + r[1] + "</span></div>";
+    }).join("");
+  }
+
+  function renderChecks() {
+    var host = document.getElementById("checks");
+    host.innerHTML = DRILL.CHECKS.map(function (c, i) {
+      return '<div class="card" data-id="' + c.id + '"><p class="progress">' + (i + 1) + "/" + DRILL.CHECKS.length +
+        '</p><p class="q">' + c.q + '</p><div class="choices"><button data-v="1">Yes</button><button data-v="0">No / not sure</button></div>' +
+        '<p class="why">' + c.why + "</p></div>";
+    }).join("");
+    host.querySelectorAll(".card").forEach(function (card) {
+      card.querySelector(".choices").addEventListener("click", function (e) {
+        if (e.target.tagName !== "BUTTON") return;
+        card.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+        e.target.setAttribute("aria-pressed", "true");
+        answers[card.dataset.id] = e.target.dataset.v === "1";
+        card.querySelector(".why").style.display = "block";
+        if (Object.keys(answers).length === DRILL.CHECKS.length) showResult();
+      });
+    });
+  }
+
+  function showResult() {
+    var r = DRILL.score(answers);
+    document.getElementById("result-card").classList.remove("hidden");
+    document.getElementById("score").textContent = r.points + " / " + r.total;
+    var band = document.getElementById("band");
+    band.textContent = r.band;
+    band.className = "band " + (r.points >= 9 ? "ok" : r.points >= 5 ? "warn" : "bad");
+    document.getElementById("gaps").innerHTML = r.gaps.length
+      ? "<p class='sub' style='margin-top:14px'>Your gaps:</p>" + r.gaps.map(function (g) { return '<div class="gap"><b>' + g.q + "</b><span>" + g.why + "</span></div>"; }).join("")
+      : "<p class='sub'>No gaps — run a tabletop to prove it under time pressure.</p>";
+    document.getElementById("result-card").scrollIntoView({ behavior: "smooth" });
+  }
+
+  document.getElementById("export").addEventListener("click", function () {
+    var r = DRILL.score(answers);
+    var d = DRILL.deadlines(Date.now());
+    var html = "<!DOCTYPE html><html><head><meta charset='utf-8'><title>CRA Article 14 readiness report</title>" +
+      "<style>body{font:15px/1.6 system-ui;max-width:720px;margin:40px auto;padding:0 20px;color:#111}h1{font-size:22px}.gap{border-left:3px solid #d29922;padding:6px 12px;margin:8px 0}.ok{color:#1a7f37}</style></head><body>" +
+      "<h1>CRA Article 14 readiness report</h1><p>Generated " + new Date().toLocaleString() + " by the free CRA Incident Drill (runs locally; no data was uploaded).</p>" +
+      "<p><b>Score: " + r.points + "/" + r.total + " — " + r.band + "</b></p>" +
+      "<p>If you became aware of an exploited vulnerability right now, your early warning would be due <b>" + new Date(d.earlyWarning).toLocaleString() + "</b> and your 72-hour notification <b>" + new Date(d.notification).toLocaleString() + "</b>.</p>" +
+      (r.gaps.length ? "<h2>Gaps to close before 11 September 2026</h2>" + r.gaps.map(function (g) { return "<div class='gap'><b>" + g.q + "</b><br>" + g.why + "</div>"; }).join("") : "<p class='ok'>No gaps recorded.</p>") +
+      "<p>Close the gaps with the $99 Reporting Operations Pack: <a href='https://giladshaul.github.io/cra-incident-drill/#pack'>cra-incident-drill</a></p>" +
+      "<p style='color:#666;font-size:13px'>Educational readiness exercise. Not legal advice.</p></body></html>";
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
+    a.download = "cra-readiness-report.html";
+    a.click();
+  });
+})();
+</script>
+</body>
+</html>
