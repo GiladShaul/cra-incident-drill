@@ -137,6 +137,32 @@
   </div>
 </footer>
 
+<script src="paddle-config.js"></script>
+<script>
+(function () {
+  var cfg = window.PADDLE_CONFIG;
+  if (!cfg) return; // checkout not live yet
+  var s = document.createElement("script");
+  s.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
+  s.onload = function () {
+    Paddle.Initialize({
+      token: cfg.token,
+      eventCallback: function (ev) {
+        if (ev.name === "checkout.completed" && ev.data && ev.data.transaction_id) {
+          setTimeout(function () { location.href = cfg.claimUrl + "?txn=" + ev.data.transaction_id; }, 1500);
+        }
+      }
+    });
+    var btn = document.getElementById("buy");
+    btn.disabled = false;
+    btn.textContent = "Buy now — $99";
+    btn.addEventListener("click", function () {
+      Paddle.Checkout.open({ items: [{ priceId: cfg.priceId, quantity: 1 }] });
+    });
+  };
+  document.head.appendChild(s);
+})();
+</script>
 <script src="drill.js"></script>
 <script>
 (function () {
