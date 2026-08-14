@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>76% of European software vendors have no security.txt — August 2026 scan</title>
+<meta name="description" content="We scanned 623 European software vendors in August 2026: 76% of reachable sites have no security.txt at /.well-known/. From 11 September, awareness of an exploited vulnerability starts a 24-hour legal reporting clock under the EU Cyber Resilience Act.">
+<link rel="canonical" href="https://giladshaul.github.io/cra-incident-drill/research.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E%E2%8F%B1%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="./">CRA<span>·</span>Incident Drill</a>
+    <nav><a href="./#drill">The drill</a><a href="deadline-calculator.html">Deadline calculator</a><a href="security-txt-generator.html">security.txt</a></nav>
+  </div>
+</header>
+<div class="wrap">
+  <div class="hero">
+    <h1>We scanned 623 European software vendors.<br><em style="color:var(--bad);font-style:normal">76% have no security.txt.</em></h1>
+    <p class="lead">August 2026. In four weeks, the EU Cyber Resilience Act's Article 14 starts a 24-hour reporting clock the moment a manufacturer becomes aware of an actively exploited vulnerability. The most common way to become aware is a researcher trying to tell you — and three out of four European vendors don't publish the standard file that lets them.</p>
+  </div>
+  <section>
+    <h2>Results</h2>
+    <div class="timeline">
+      <div class="tl-item"><span class="tl-when">623</span><span>European software vendor domains scanned (source: the europealternatives.com directory of European SaaS/software companies)</span></div>
+      <div class="tl-item"><span class="tl-when">492</span><span>reachable over HTTPS at scan time</span></div>
+      <div class="tl-item"><span class="tl-when">118 (24%)</span><span>publish a valid security.txt at <code>/.well-known/security.txt</code> (HTTP 200 + a Contact: field, per RFC 9116)</span></div>
+      <div class="tl-item"><span class="tl-when">374 (76%)</span><span>publish none — no standard private channel for a researcher to report a vulnerability</span></div>
+    </div>
+    <h2>Why this matters after 11 September 2026</h2>
+    <p class="sub">CRA Article 14 requires manufacturers of products with digital elements sold in the EU — including products already on the market — to file an early warning with ENISA and their coordinating CSIRT within 24 hours of becoming aware of an actively exploited vulnerability or severe incident, a fuller notification within 72 hours, and a final report after. A researcher who can't reach you privately goes public, to a CERT, or to your customers — and your 24-hour clock starts in the worst possible way.</p>
+    <h2>Methodology &amp; caveats</h2>
+    <p class="sub">Single GET request to <code>https://&lt;domain&gt;/.well-known/security.txt</code> per domain on 14 August 2026, following up to 3 redirects, 8s timeout. Counted "present" only if the response was HTTP 200 and contained a <code>Contact:</code> line (filtering SPA catch-alls that return 200 for everything). Unreachable domains (131) excluded from percentages. The population is companies listed on europealternatives.com — European SaaS and software vendors; not a random sample of all EU manufacturers. Some vendors accept reports through other channels (bug-bounty platforms, published security emails); this scan measures RFC 9116 adoption specifically. We publish aggregates only, not the list.</p>
+    <h2>Fix yours in 30 seconds</h2>
+    <p><a class="btn" href="security-txt-generator.html">Generate your security.txt</a> <a class="btn secondary" href="./">Run the 7-minute readiness drill</a></p>
+    <div class="disclaimer">Independent research by CRA Incident Drill. Not affiliated with the EU, ENISA, or europealternatives.com. Educational material, not legal advice. Questions or corrections: via the repository issue tracker in the <a href="terms.html">Terms</a>.</div>
+  </section>
+</div>
+<footer><div class="wrap"><p>© 2026 CRA Incident Drill · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="refunds.html">Refunds</a></p></div></footer>
+</body>
+</html>
