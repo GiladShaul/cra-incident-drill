@@ -3,8 +3,8 @@
 > Free browser-based readiness drill for the EU Cyber Resilience Act (CRA) Article 14 reporting duty, which applies from 11 September 2026: manufacturers of products with digital elements must file an early warning within 24 hours of becoming aware of an actively exploited vulnerability or severe incident, a notification within 72 hours, and a final report (14 days after a fix for vulnerabilities; one month for incidents), via ENISA's Single Reporting Platform. The duty covers products already on the EU market.
 
 ## Tools
-- [The drill](https://giladshaul.github.io/cra-incident-drill/): 12-question readiness self-assessment with a simulated incident and deadline timeline. Runs entirely client-side.
-- [security.txt generator](https://giladshaul.github.io/cra-incident-drill/security-txt-generator.html): free RFC 9116 security.txt generator.
+- [The drill](https://cradrill.com/): 12-question readiness self-assessment with a simulated incident and deadline timeline. Runs entirely client-side.
+- [security.txt generator](https://cradrill.com/security-txt-generator.html): free RFC 9116 security.txt generator.
 
 ## Paid
 - Article 14 Reporting Operations Pack ($99): pre-built working files for the 24h/72h/final reports, incident clock workbook, escalation RACI, evidence log, executive and customer notices, disclosure policy templates, and a tabletop scenario.

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CRA Incident Drill — could you file the EU 24-hour report in time?</title>
 <meta name="description" content="From 11 September 2026 the EU Cyber Resilience Act gives manufacturers 24 hours to file an early warning after learning of an exploited vulnerability or severe incident. Run the free 7-minute browser drill and find your gaps before the clock is real.">
-<link rel="canonical" href="https://giladshaul.github.io/cra-incident-drill/">
+<link rel="canonical" href="https://cradrill.com/">
 <meta property="og:title" content="CRA Incident Drill — the EU 24-hour reporting rule starts 11 Sept 2026">
 <meta property="og:description" content="Free 7-minute readiness drill for the Cyber Resilience Act Article 14 reporting duty. Runs entirely in your browser — nothing is uploaded.">
 <meta property="og:type" content="website">
@@ -250,7 +250,7 @@
       "<p><b>Score: " + r.points + "/" + r.total + " — " + r.band + "</b></p>" +
       "<p>If you became aware of an exploited vulnerability right now, your early warning would be due <b>" + new Date(d.earlyWarning).toLocaleString() + "</b> and your 72-hour notification <b>" + new Date(d.notification).toLocaleString() + "</b>.</p>" +
       (r.gaps.length ? "<h2>Gaps to close before 11 September 2026</h2>" + r.gaps.map(function (g) { return "<div class='gap'><b>" + g.q + "</b><br>" + g.why + "</div>"; }).join("") : "<p class='ok'>No gaps recorded.</p>") +
-      "<p>Close the gaps with the $99 Reporting Operations Pack: <a href='https://giladshaul.github.io/cra-incident-drill/#pack'>cra-incident-drill</a></p>" +
+      "<p>Close the gaps with the $99 Reporting Operations Pack: <a href='https://cradrill.com/#pack'>cra-incident-drill</a></p>" +
       "<p style='color:#666;font-size:13px'>Educational readiness exercise. Not legal advice.</p></body></html>";
     var a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
