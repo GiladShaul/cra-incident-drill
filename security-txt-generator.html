@@ -34,6 +34,7 @@
       <label for="canonical">Canonical URL of this file (optional but recommended)</label>
       <input type="url" id="canonical" placeholder="https://yourcompany.com/.well-known/security.txt">
       <p style="margin-top:16px"><button class="btn" id="gen">Generate</button></p>
+      <p id="note" class="sub" style="color:var(--warn)"></p>
       <div id="outwrap" class="hidden">
         <pre class="out" id="out"></pre>
         <p><button class="btn secondary" id="dl">Download security.txt</button></p>
@@ -49,8 +50,20 @@ document.getElementById("gen").addEventListener("click", function () {
   var c = document.getElementById("contact").value.trim();
   var e = document.getElementById("expires").value;
   if (!c || !e) { alert("Contact and Expires are required by RFC 9116."); return; }
+  var exp = new Date(e + "T23:59:59Z");
+  var note = document.getElementById("note");
+  note.textContent = "";
+  // An expired file is treated as stale, so refuse to generate one; over a year is allowed
+  // but discouraged by RFC 9116 section 2.5.5, so warn rather than block.
+  if (exp.getTime() <= Date.now()) {
+    note.textContent = "That Expires date is in the past — the file would be stale the moment you publish it. Pick a future date (within about a year).";
+    return;
+  }
+  if (exp.getTime() > Date.now() + 366 * 864e5) {
+    note.textContent = "Generated, but note: RFC 9116 recommends an Expires date less than a year out, so researchers can tell the contact is still maintained.";
+  }
   var contact = /^https?:\/\//.test(c) ? c : "mailto:" + c;
-  var lines = ["Contact: " + contact, "Expires: " + new Date(e + "T23:59:59Z").toISOString()];
+  var lines = ["Contact: " + contact, "Expires: " + exp.toISOString()];
   var p = document.getElementById("policy").value.trim(); if (p) lines.push("Policy: " + p);
   var l = document.getElementById("langs").value.trim(); if (l) lines.push("Preferred-Languages: " + l);
   var k = document.getElementById("canonical").value.trim(); if (k) lines.push("Canonical: " + k);
