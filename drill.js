@@ -46,18 +46,32 @@ var DRILL = (function () {
     return { points: got, total: CHECKS.length, band: band, gaps: gaps };
   }
 
+  // Add one calendar month, clamping to the last day of the target month.
+  // Naive setMonth turns 31 Jan into 3 Mar (no 31 Feb), which would overstate a legal
+  // deadline by days — always the dangerous direction for a compliance tool.
+  function addOneMonth(ms) {
+    var d = new Date(ms);
+    var day = d.getUTCDate();
+    d.setUTCMonth(d.getUTCMonth() + 1);
+    if (d.getUTCDate() !== day) d.setUTCDate(0); // overflowed: step back to last day of intended month
+    return d;
+  }
+
   // Deadline math from a simulated awareness time.
   function deadlines(awareMs) {
+    // Art. 14(4) gives the incident final report one calendar month after the 72-hour
+    // notification is submitted; this assumes submission at the 72h deadline (latest lawful moment).
+    var finalIncident = addOneMonth(awareMs + 72 * HOUR);
     return {
       aware: awareMs,
       earlyWarning: awareMs + 24 * HOUR,
       notification: awareMs + 72 * HOUR,
       finalVuln: "14 days after a corrective or mitigating measure is available",
-      finalIncidentMs: awareMs + 72 * HOUR + 30 * DAY // ~1 month after the 72h notification
+      finalIncidentMs: finalIncident.getTime()
     };
   }
 
-  return { CHECKS: CHECKS, scopeVerdict: scopeVerdict, score: score, deadlines: deadlines, HOUR: HOUR, DAY: DAY };
+  return { CHECKS: CHECKS, scopeVerdict: scopeVerdict, score: score, deadlines: deadlines, addOneMonth: addOneMonth, HOUR: HOUR, DAY: DAY };
 })();
 
 if (typeof module !== "undefined") module.exports = DRILL;
