@@ -167,6 +167,8 @@
   document.head.appendChild(s);
 
   function showFallback() {
+    // Dismiss Paddle's generic error modal first, or it sits on top of our message.
+    try { Paddle.Checkout.close(); } catch (e) {}
     var area = document.getElementById("buy-area");
     if (!area || area.dataset.fallback) return;
     area.dataset.fallback = "1";
