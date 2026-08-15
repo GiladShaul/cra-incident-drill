@@ -138,7 +138,7 @@
 (function () {
   var cfg = window.PADDLE_CONFIG;
   if (!cfg) return; // checkout not live yet
-  var opened = false;
+  var opened = false, clicked = false;
   var s = document.createElement("script");
   s.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
   s.onload = function () {
@@ -148,7 +148,9 @@
         // Checkout can be unavailable while the account/domain is still being switched on.
         // Rather than leave the buyer staring at Paddle's generic error, offer a way to reach us.
         if (ev.name === "checkout.loaded") { opened = true; }
-        if (ev.name === "checkout.error") { showFallback(); }
+        // Only swap in the fallback once a buyer has actually tried to pay — an error at
+        // init time shouldn't strip the buy button off an otherwise healthy page.
+        if (ev.name === "checkout.error" && clicked) { showFallback(); }
         if (ev.name === "checkout.completed" && ev.data && ev.data.transaction_id) {
           setTimeout(function () { location.href = cfg.claimUrl + "?txn=" + ev.data.transaction_id; }, 1500);
         }
@@ -158,7 +160,7 @@
     btn.disabled = false;
     btn.textContent = "Buy now — $99";
     btn.addEventListener("click", function () {
-      opened = false;
+      opened = false; clicked = true;
       Paddle.Checkout.open({ items: [{ priceId: cfg.priceId, quantity: 1 }] });
       // If the overlay never reports itself as loaded, treat it as unavailable.
       setTimeout(function () { if (!opened) showFallback(); }, 6000);
