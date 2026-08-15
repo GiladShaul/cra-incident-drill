@@ -138,12 +138,17 @@
 (function () {
   var cfg = window.PADDLE_CONFIG;
   if (!cfg) return; // checkout not live yet
+  var opened = false;
   var s = document.createElement("script");
   s.src = "https://cdn.paddle.com/paddle/v2/paddle.js";
   s.onload = function () {
     Paddle.Initialize({
       token: cfg.token,
       eventCallback: function (ev) {
+        // Checkout can be unavailable while the account/domain is still being switched on.
+        // Rather than leave the buyer staring at Paddle's generic error, offer a way to reach us.
+        if (ev.name === "checkout.loaded") { opened = true; }
+        if (ev.name === "checkout.error") { showFallback(); }
         if (ev.name === "checkout.completed" && ev.data && ev.data.transaction_id) {
           setTimeout(function () { location.href = cfg.claimUrl + "?txn=" + ev.data.transaction_id; }, 1500);
         }
@@ -153,10 +158,23 @@
     btn.disabled = false;
     btn.textContent = "Buy now — $99";
     btn.addEventListener("click", function () {
+      opened = false;
       Paddle.Checkout.open({ items: [{ priceId: cfg.priceId, quantity: 1 }] });
+      // If the overlay never reports itself as loaded, treat it as unavailable.
+      setTimeout(function () { if (!opened) showFallback(); }, 6000);
     });
   };
   document.head.appendChild(s);
+
+  function showFallback() {
+    var area = document.getElementById("buy-area");
+    if (!area || area.dataset.fallback) return;
+    area.dataset.fallback = "1";
+    area.innerHTML = '<p style="background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:8px;padding:14px 16px">' +
+      '<b>Card checkout is being switched on.</b><br>The pack itself is finished. Email ' +
+      '<a href="mailto:hello@cradrill.com?subject=Article%2014%20Reporting%20Operations%20Pack">hello@cradrill.com</a>' +
+      ' and you will get the payment link the moment it is live — before 11 September.</p>';
+  }
 })();
 </script>
 <script src="drill.js"></script>
