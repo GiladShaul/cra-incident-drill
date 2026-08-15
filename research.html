@@ -33,6 +33,15 @@
     <p class="sub">CRA Article 14 requires manufacturers of products with digital elements sold in the EU to file an early warning with ENISA and their coordinating CSIRT within 24 hours of becoming aware of an actively exploited vulnerability or severe incident, a fuller notification within 72 hours, and a final report after. It reaches the installed base: Article 69(2) grandfathers products placed on the market before 11 December 2027, but Article 69(3) derogates from that specifically so "the obligations laid down in Article 14 shall apply to all products with digital elements … placed on the market before 11 December 2027". A researcher who can't reach you privately goes public, to a CERT, or to your customers — and your 24-hour clock starts in the worst possible way.</p>
     <h2>Methodology &amp; caveats</h2>
     <p class="sub">Single GET request to <code>https://&lt;domain&gt;/.well-known/security.txt</code> per domain on 14 August 2026, following up to 3 redirects, 8s timeout. Counted "present" only if the response was HTTP 200 and contained a <code>Contact:</code> line (filtering SPA catch-alls that return 200 for everything). Unreachable domains (131) excluded from percentages. The population is companies listed on europealternatives.com — European SaaS and software vendors; not a random sample of all EU manufacturers. Some vendors accept reports through other channels (bug-bounty platforms, published security emails); this scan measures RFC 9116 adoption specifically. We publish aggregates only, not the list.</p>
+    <h2>Reproduce it</h2>
+    <p class="sub">The check is one request per domain, so you can verify the method on any list you like — no need to take our number on trust:</p>
+    <pre class="out">while read -r d; do
+  curl -sfL -m 8 "https://$d/.well-known/security.txt" \
+    | grep -qi '^[[:space:]]*contact:' \
+    &amp;&amp; echo "$d present" || echo "$d missing"
+done &lt; domains.txt</pre>
+    <p class="sub">We publish the aggregate, not the list of vendors — naming companies that lack a security contact would help the wrong people first. If you believe your domain was misclassified (for example you serve the file only to certain user agents, or it was briefly down on 14 August), email <a href="mailto:hello@cradrill.com">hello@cradrill.com</a> and we'll recheck and correct the figure.</p>
+
     <h2>Fix yours in 30 seconds</h2>
     <p><a class="btn" href="security-txt-generator.html">Generate your security.txt</a> <a class="btn secondary" href="./">Run the 7-minute readiness drill</a></p>
     <div class="disclaimer">Independent research by CRA Incident Drill. Not affiliated with the EU, ENISA, or europealternatives.com. Educational material, not legal advice. Questions or corrections: via the repository issue tracker in the <a href="terms.html">Terms</a>.</div>
