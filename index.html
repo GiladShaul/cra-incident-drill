@@ -14,7 +14,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"Who must report under CRA Article 14?","acceptedAnswer":{"@type":"Answer","text":"Manufacturers of products with digital elements made available on the EU market. From 11 September 2026 they must report actively exploited vulnerabilities and severe incidents to ENISA and their coordinating CSIRT via the Single Reporting Platform — including for products already sold."}},
-{"@type":"Question","name":"What are the CRA reporting deadlines?","acceptedAnswer":{"@type":"Answer","text":"An early warning within 24 hours of becoming aware, a fuller notification within 72 hours, and a final report within 14 days of a fix being available (vulnerabilities) or within one month (severe incidents)."}},
+{"@type":"Question","name":"What are the CRA reporting deadlines?","acceptedAnswer":{"@type":"Answer","text":"An early warning within 24 hours of becoming aware, a fuller notification within 72 hours, and a final report within 14 days of a corrective or mitigating measure becoming available (vulnerabilities) or within one month of submitting the notification (severe incidents)."}},
 {"@type":"Question","name":"Is this tool legal advice?","acceptedAnswer":{"@type":"Answer","text":"No. It is an educational readiness exercise. Confirm scope and obligations with qualified counsel."}}]}
 </script>
 </head>
@@ -95,13 +95,13 @@
     <h2>Article 14 Reporting Operations Pack</h2>
     <p class="sub">Everything the drill says you're missing, pre-built. Not theory — working files your team fills in during the real 24 hours.</p>
     <div class="card">
-      <div class="price">$99 <small>one-time · instant download · 30-day refund</small></div>
+      <div class="price">$39 <small>one-time · instant download · 30-day refund</small></div>
       <ul class="pack">
         <li><b>24-hour early-warning working files</b> — vulnerability and incident variants, fields matching the notification content required by Article 14</li>
         <li><b>72-hour notification working files</b> — both variants, with prompts for the exploit description, measures taken, and user mitigations</li>
         <li><b>Final report working files</b> — 14-day (vulnerability) and 1-month (incident) versions</li>
         <li><b>Incident clock workbook</b> — awareness timestamping guidance + deadline tracker</li>
-        <li><b>Escalation & RACI sheet</b> — who declares awareness, who drafts, who submits, who informs users</li>
+        <li><b>Escalation & RACI sheet</b> — who assesses and records the awareness time, who drafts, who submits, who informs users</li>
         <li><b>Evidence log template</b> — the timestamped trail that proves you filed in time</li>
         <li><b>Executive brief + customer notice templates</b> — Article 14(8) user-information duty covered</li>
         <li><b>security.txt & disclosure-policy generator</b> — plus a completed example</li>
@@ -158,7 +158,7 @@
     });
     var btn = document.getElementById("buy");
     btn.disabled = false;
-    btn.textContent = "Buy now — $99";
+    btn.textContent = "Buy now — $39";
     btn.addEventListener("click", function () {
       opened = false; clicked = true;
       Paddle.Checkout.open({ items: [{ priceId: cfg.priceId, quantity: 1 }] });
@@ -268,7 +268,7 @@
       "<p><b>Score: " + r.points + "/" + r.total + " — " + r.band + "</b></p>" +
       "<p>If you became aware of an exploited vulnerability right now, your early warning would be due <b>" + new Date(d.earlyWarning).toLocaleString() + "</b> and your 72-hour notification <b>" + new Date(d.notification).toLocaleString() + "</b>.</p>" +
       (r.gaps.length ? "<h2>Gaps to close before 11 September 2026</h2>" + r.gaps.map(function (g) { return "<div class='gap'><b>" + g.q + "</b><br>" + g.why + "</div>"; }).join("") : "<p class='ok'>No gaps recorded.</p>") +
-      "<p>Close the gaps with the $99 Reporting Operations Pack: <a href='https://cradrill.com/#pack'>cra-incident-drill</a></p>" +
+      "<p>Close the gaps with the $39 Reporting Operations Pack: <a href='https://cradrill.com/#pack'>cra-incident-drill</a></p>" +
       "<p style='color:#666;font-size:13px'>Educational readiness exercise. Not legal advice.</p></body></html>";
     var a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));

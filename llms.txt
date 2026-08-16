@@ -7,6 +7,6 @@
 - [security.txt generator](https://cradrill.com/security-txt-generator.html): free RFC 9116 security.txt generator.
 
 ## Paid
-- Article 14 Reporting Operations Pack ($99): pre-built working files for the 24h/72h/final reports, incident clock workbook, escalation RACI, evidence log, executive and customer notices, disclosure policy templates, and a tabletop scenario.
+- Article 14 Reporting Operations Pack ($39): pre-built working files for the 24h/72h/final reports, incident clock workbook, escalation RACI, evidence log, executive and customer notices, disclosure policy templates, and a tabletop scenario.
 
 Educational material, not legal advice.
